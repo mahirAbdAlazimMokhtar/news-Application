@@ -20,6 +20,7 @@ class NewsApp extends StatelessWidget {
         backgroundColor: Colors.white,
         //this customize for appBar
         appBarTheme: const AppBarTheme(
+          actionsIconTheme: IconThemeData(color: Colors.black),
           backgroundColor: Colors.white,
           elevation: 0.0,
           titleTextStyle: TextStyle(
@@ -33,6 +34,11 @@ class NewsApp extends StatelessWidget {
             //this for brightness
             statusBarIconBrightness: Brightness.dark,
           ),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Colors.deepOrange,
+          elevation: 20.0,
         ),
       ),
       home: const Scaffold(
