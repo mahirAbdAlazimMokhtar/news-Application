@@ -1,11 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/news_app/cubit/states.dart';
 import 'package:news_app/modules/business/business_screen.dart';
 import 'package:news_app/modules/sciences/sciences_screen.dart';
-import 'package:news_app/modules/settings/settings_screen.dart';
 import 'package:news_app/modules/sports/sports_screen.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 
@@ -27,10 +25,6 @@ class NewsCubit extends Cubit<NewsStates> {
       icon: Icon(Icons.science),
       label: 'Sciences',
     ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.settings),
-      label: 'Settings',
-    ),
   ];
 
 //this method for change location in bottom nav bar
@@ -50,7 +44,6 @@ class NewsCubit extends Cubit<NewsStates> {
     const BusinessScreen(),
     const SportsScreen(),
     const SciencesScreen(),
-    const SettingsScreen(),
   ];
   List<dynamic> business = [];
   List<dynamic> sports = [];
@@ -67,7 +60,9 @@ class NewsCubit extends Cubit<NewsStates> {
       },
     ).then((value) {
       business = value.data['articles'];
-      print(business[0]['title']);
+      if (kDebugMode) {
+        print(business[0]['title']);
+      }
       emit(NewsGetBusinessDataSuccessStates());
     }).catchError((onError) {
       if (kDebugMode) {
@@ -117,7 +112,9 @@ class NewsCubit extends Cubit<NewsStates> {
         },
       ).then((value) {
         sciences = value.data['articles'];
-        print(sciences[0]['title']);
+        if (kDebugMode) {
+          print(sciences[0]['title']);
+        }
         emit(NewsGetSciencesDataSuccessStates());
       }).catchError((onError) {
         if (kDebugMode) {
