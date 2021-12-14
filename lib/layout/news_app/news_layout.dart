@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/layout/news_app/cubit/cubit.dart';
@@ -9,7 +10,7 @@ class NewsLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => NewsCubit(),
+      create: (BuildContext context) => NewsCubit()..getBusiness(),
       child: BlocConsumer<NewsCubit, NewsStates>(
         builder: (context, states) {
           NewsCubit cubit = NewsCubit.get(context);
