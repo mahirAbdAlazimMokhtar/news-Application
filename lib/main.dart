@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_app/layout/news_app/news_layout.dart';
+import 'package:news_app/network/remote/dio_helper.dart';
 
 void main() {
   runApp(const NewsApp());
+  DioHelper.init();
 }
 
 class NewsApp extends StatelessWidget {
