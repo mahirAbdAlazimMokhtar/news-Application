@@ -9,33 +9,39 @@ class NewsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => NewsCubit()..getBusiness(),
-      child: BlocConsumer<NewsCubit, NewsStates>(
-        builder: (context, states) {
-          NewsCubit cubit = NewsCubit.get(context);
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('News App'),
-              actions: [
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {},
-                ),
-              ],
+    return BlocConsumer<NewsCubit, NewsStates>(
+      builder: (context, states) {
+        NewsCubit cubit = NewsCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'News App',
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              onTap: (index) {
-                cubit.changeBottomNavBar(index);
-              },
-              items: cubit.bottomItems,
-              currentIndex: cubit.currentIndex,
-            ),
-            body: cubit.screens[cubit.currentIndex],
-          );
-        },
-        listener: (context, states) {},
-      ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.brightness_4_outlined),
+                onPressed: () {
+                  cubit.changeAppMode();
+                  print(cubit.changeAppMode);
+                },
+              ),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: (index) {
+              cubit.changeBottomNavBar(index);
+            },
+            items: cubit.bottomItems,
+            currentIndex: cubit.currentIndex,
+          ),
+          body: cubit.screens[cubit.currentIndex],
+        );
+      },
+      listener: (context, states) {},
     );
   }
 }
