@@ -12,7 +12,15 @@ class NewsCubit extends Cubit<NewsStates> {
 
   static NewsCubit get(context) => BlocProvider.of(context);
 
-  int currentIndex = 0;
+  int currentIndex = 1;
+  bool isDark = false;
+
+  void changeAppMode() {
+    print("changeAppMode");
+    isDark = !isDark;
+    emit(NewsAppChangeModeStates());
+    print(isDark);
+  }
 
   List<BottomNavigationBarItem> bottomItems = [
     const BottomNavigationBarItem(
@@ -29,6 +37,10 @@ class NewsCubit extends Cubit<NewsStates> {
 
 //this method for change location in bottom nav bar
   void changeBottomNavBar(int index) {
+    if (index == 0) {
+      getBusiness();
+    }
+
     if (index == 1) {
       getSports();
     }
@@ -78,9 +90,8 @@ class NewsCubit extends Cubit<NewsStates> {
       DioHelper.getData(
         url: 'v2/top-headlines',
         query: {
-          //category=sports
           'country': 'eg',
-          'category': 'sport',
+          'category': 'sports',
           'apiKey': '7d029239320b4803af87e4104ce88036',
         },
       ).then((value) {
@@ -108,7 +119,7 @@ class NewsCubit extends Cubit<NewsStates> {
         query: {
           'country': 'eg',
           'category': 'science',
-          'apiKey': '7d029239320b4803af87e4104ce88036',
+          'apiKey': '65f7f556ec76449fa7dc7c0069f040ca',
         },
       ).then((value) {
         sciences = value.data['articles'];
