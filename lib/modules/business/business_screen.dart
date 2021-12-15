@@ -18,7 +18,7 @@ class BusinessScreen extends StatelessWidget {
                 //this 4 active scroll for screen
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return buildArticleItem(list[index]);
+                  return buildArticleItem(list[index], context);
                 },
                 separatorBuilder: (context, index) {
                   return Padding(

@@ -12,12 +12,12 @@ class SportsScreen extends StatelessWidget {
     return BlocConsumer<NewsCubit, NewsStates>(
         builder: (context, states) {
           var list = NewsCubit.get(context).sports;
-          if (list.length > 0) {
+          if (list.isNotEmpty) {
             return ListView.separated(
                 //this 4 active scroll for screen
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return buildArticleItem(list[index]);
+                  return buildArticleItem(list[index], context);
                 },
                 separatorBuilder: (context, index) {
                   return Padding(
@@ -29,7 +29,7 @@ class SportsScreen extends StatelessWidget {
                     ),
                   );
                 },
-                itemCount: 10);
+                itemCount: list.length);
           } else {
             return const Center(
                 child: CircularProgressIndicator(
