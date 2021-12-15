@@ -6,7 +6,6 @@ import 'package:news_app/shared/components/components_screen.dart';
 
 class SportsScreen extends StatelessWidget {
   const SportsScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<NewsCubit, NewsStates>(

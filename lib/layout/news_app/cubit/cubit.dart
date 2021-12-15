@@ -5,6 +5,7 @@ import 'package:news_app/layout/news_app/cubit/states.dart';
 import 'package:news_app/modules/business/business_screen.dart';
 import 'package:news_app/modules/sciences/sciences_screen.dart';
 import 'package:news_app/modules/sports/sports_screen.dart';
+import 'package:news_app/network/remote/cache_helper.dart';
 import 'package:news_app/network/remote/dio_helper.dart';
 
 class NewsCubit extends Cubit<NewsStates> {
@@ -15,11 +16,15 @@ class NewsCubit extends Cubit<NewsStates> {
   int currentIndex = 1;
   bool isDark = false;
 
-  void changeAppMode() {
-    print("changeAppMode");
-    isDark = !isDark;
-    emit(NewsAppChangeModeStates());
-    print(isDark);
+  void changeAppMode({bool? fromShared}) {
+    if (fromShared != null) {
+      fromShared = isDark;
+      emit(NewsAppChangeModeStates());
+    } else {
+      isDark = !isDark;
+      CacheHelper.putBoolean(key: 'isDark', value: isDark)
+          .then((value) => emit(NewsAppChangeModeStates()));
+    }
   }
 
   List<BottomNavigationBarItem> bottomItems = [
@@ -119,7 +124,7 @@ class NewsCubit extends Cubit<NewsStates> {
         query: {
           'country': 'eg',
           'category': 'science',
-          'apiKey': '65f7f556ec76449fa7dc7c0069f040ca',
+          'apiKey': '7d029239320b4803af87e4104ce88036',
         },
       ).then((value) {
         sciences = value.data['articles'];
